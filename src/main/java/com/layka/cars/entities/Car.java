@@ -1,11 +1,12 @@
 package com.layka.cars.entities;
 
-import java.util.Date;
+import java.util.Date; 
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 
 @Entity
@@ -16,6 +17,8 @@ public class Car {
     private String carModel;
     private Double carPrice;
     private Date dateManufacture;
+    @ManyToOne
+    private Maker maker;
 
     public Car() {
         super();
@@ -27,7 +30,15 @@ public class Car {
         this.carPrice = carPrice;
         this.dateManufacture = dateManufacture;
     }
-
+    
+    public Maker getMaker() {
+    	return maker;
+    }
+    
+    public void setMaker(Maker maker) {
+    	this.maker=maker;
+    }
+    
     public Long getIdCar() {
         return idCar;
     }

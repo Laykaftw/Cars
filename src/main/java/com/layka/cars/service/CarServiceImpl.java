@@ -1,20 +1,21 @@
 package com.layka.cars.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.layka.cars.entities.Car;
+import com.layka.cars.entities.Maker;
 import com.layka.cars.repos.CarRepository;
+
+import java.util.List;
 
 @Service
 public class CarServiceImpl implements CarService {
 
     @Autowired
-    CarRepository carRepository;
+    private CarRepository carRepository;
 
     @Override
     public Car saveCar(Car car) {
@@ -47,7 +48,44 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public List<Car> findByCarModel(String carModel) {
+        return carRepository.findByCarModel(carModel);
+    }
+
+    @Override
+    public List<Car> findByCarModelContains(String carModel) {
+        return carRepository.findByCarModelContains(carModel);
+    }
+
+    @Override
+    public List<Car> findByCarModelAndCarPrice(String carModel, Double carPrice) {
+        return carRepository.findByCarModelPrice(carModel, carPrice);
+    }
+
+    @Override
+    public List<Car> findByMaker(Maker maker) {
+        return carRepository.findByMaker(maker);
+    }
+
+    @Override
+    public List<Car> findByMakerIdMak(Long id) {
+        return carRepository.findByMakerId(id);
+    }
+
+    @Override
+    public List<Car> findByOrderByCarModelAsc() {
+        return carRepository.findByOrderByCarModelAsc();
+    }
+
+    @Override
+    public List<Car> sortCarsByModelAndPrice() {
+        return carRepository.sortCarsByModelAndPrice();
+    }
+
+    @Override
     public Page<Car> getAllCarsPerPage(int page, int size) {
         return carRepository.findAll(PageRequest.of(page, size));
     }
+
+	
 }
