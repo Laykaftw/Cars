@@ -1,13 +1,15 @@
 package com.layka.cars.repos;
 
-import java.util.List;
+import java.util.List; 
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.layka.cars.entities.Car;
 import com.layka.cars.entities.Maker;
 
+@RepositoryRestResource(path = "rest")
 public interface CarRepository extends JpaRepository<Car, Long> {
     List<Car> findByCarModel(String carModel);
     List<Car> findByCarModelContains(String carModel);

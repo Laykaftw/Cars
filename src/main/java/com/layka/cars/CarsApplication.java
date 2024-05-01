@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 
 import com.layka.cars.entities.Car;
 import com.layka.cars.service.CarService;
@@ -13,7 +14,7 @@ import com.layka.cars.service.CarService;
 public class CarsApplication implements CommandLineRunner {
 
     @Autowired
-    private CarService carService;
+    private RepositoryRestConfiguration repositoryRestConfiguration;
 
     public static void main(String[] args) {
         SpringApplication.run(CarsApplication.class, args);
@@ -21,8 +22,6 @@ public class CarsApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-    	carService.saveCar(new Car("BMW M3 (E46)", 40000.0, new Date())); 
-        carService.saveCar(new Car("Nissan GT-R", 95000.0, new Date())); 
-        carService.saveCar(new Car("Audi R8", 120000.0, new Date())); 
+        repositoryRestConfiguration.exposeIdsFor(Car.class);
     }
 }
