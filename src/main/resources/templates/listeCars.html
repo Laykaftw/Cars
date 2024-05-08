@@ -1,49 +1,54 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
-
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity">
 <head>
-	<meta charset="utf-8">
-	<title>List of Cars</title>
+    <meta charset="UTF-8">
+    <title>List of Cars</title>
+    <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
 </head>
-
 <body>
-	<div th:replace="template"></div>
-	<div class="container mt-5">
-		<div class="card">
-			<div class="card-header">
-				List of Cars
-			</div>
-			<div class="card-body">
-
-				<table class="table table-striped">
-					<tr>
-						<th>ID</th>
-						<th>Car Model</th>
-						<th>Price</th>
-						<th>Manufacture Date</th>
-					</tr>
-					<tr th:each="car : ${cars.content}">
-						<td th:text="${car.idCar}"></td>
-						<td th:text="${car.carModel}"></td>
-						<td th:text="${car.carPrice}"></td>
-						<td th:text="${#dates.format(car.dateManufacture, 'yyyy-MM-dd')}"></td>
-						<td>
-                        <a class="btn btn-danger" onclick="return confirm('Are you sure ?')"
-                           th:href="@{deleteCar(id=${car.idCar}, page=${currentPage}, size=${size})}">Delete</a>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">List of Cars</div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Car Model</th>
+                    <th>Price</th>
+                    <th>Manufacture Date</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="car : ${cars.content}">
+                    <td th:text="${car.idCar}"></td>
+                    <td th:text="${car.carModel}"></td>
+                    <td th:text="${car.carPrice}"></td>
+                    <td th:text="${#dates.format(car.dateManufacture, 'yyyy-MM-dd')}"></td>
+                    <td>
+                        <td sec:authorize="hasAuthority('ADMIN')">
+                            <a class="btn btn-danger" onclick="return confirm('Are you sure?')"
+                               th:href="@{deleteCar(id=${car.idCar}, page=${currentPage}, size=${size})}">Delete</a>
+                        </td>
+                        <td sec:authorize="hasAuthority('ADMIN')">
+                            <a class="btn btn-success"
+                               th:href="@{modifierCar(id=${car.idCar})}">Edit</a>
+                        </td>
                     </td>
-					</tr>
-				</table>
-				<ul class="nav nav-pills">
-					<li th:each="page,status:${pages}">
-						<a th:class="${status.index==currentPage?'btn btn-primary':'btn' }"
-							th:href="@{ ListeCars(page=${status.index}, size=${size} ) }"
-							th:text="${status.index }"></a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</div>
+                </tr>
+                </tbody>
+            </table>
+            <ul class="pagination">
+                <li th:each="page,status:${pages}" th:class="${status.firstPage} ? disabled">
+                    <a th:if="${!status.firstPage}"
+                       th:href="@{ListeCars(page=${status.index}, size=${size})}"
+                       th:text="${status.index}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 </body>
-
 </html>

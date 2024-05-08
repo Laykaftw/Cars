@@ -42,7 +42,7 @@ public class CarRESTController {
     public void deleteCar(@PathVariable("id") Long id) {
         carService.deleteCarById(id);
     }
-    @GetMapping("/maker/{id}")
+    @GetMapping("/CarsbyMaker/{id}")
     public List<Car> getCarsByMakerId(@PathVariable("id") Long id) {
         return carService.findByMakerIdMak(id);
     }

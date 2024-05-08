@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.layka.cars.entities.Car;
 import com.layka.cars.entities.Maker;
 import com.layka.cars.repos.CarRepository;
+import com.layka.cars.repos.MakerRepository;
 
 import java.util.List;
 
@@ -87,5 +88,12 @@ public class CarServiceImpl implements CarService {
         return carRepository.findAll(PageRequest.of(page, size));
     }
 
-	
+    @Autowired
+    MakerRepository makerRepository;
+
+    @Override
+    public List<Maker> getAllMakers() {
+        return makerRepository.findAll();
+    }
+
 }

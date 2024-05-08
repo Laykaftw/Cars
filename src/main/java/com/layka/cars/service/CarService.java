@@ -23,4 +23,5 @@ public interface CarService {
     List<Car> findByOrderByCarModelAsc();
     List<Car> sortCarsByModelAndPrice();
 	Page<Car> getAllCarsPerPage(int page, int size);
+	List<Maker> getAllMakers();
 }
