@@ -1,6 +1,6 @@
 package com.layka.cars.controllers;
 
-import com.layka.cars.entities.Car;
+import com.layka.cars.entities.Car; 
 import com.layka.cars.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,13 +28,13 @@ public class CarController {
         modelMap.addAttribute("cars", cars);
         modelMap.addAttribute("pages", new int[cars.getTotalPages()]);
         modelMap.addAttribute("currentPage", page);
-        return "ListeCars";
+        return "listeCars";
     }
     
-    @GetMapping("/accessDenied")
-	public String error() {
-		return "accessDenied";
-	}
+//    @GetMapping("/accessDenied")
+//	public String error() {
+//		return "accessDenied";
+//	}
 
     @RequestMapping("/saveCar")
     public String saveCar(@Valid Car car, BindingResult bindingResult) {

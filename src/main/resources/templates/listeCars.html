@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>List of Cars</title>
@@ -28,14 +27,10 @@
                     <td th:text="${car.carPrice}"></td>
                     <td th:text="${#dates.format(car.dateManufacture, 'yyyy-MM-dd')}"></td>
                     <td>
-                        <td sec:authorize="hasAuthority('ADMIN')">
-                            <a class="btn btn-danger" onclick="return confirm('Are you sure?')"
-                               th:href="@{deleteCar(id=${car.idCar}, page=${currentPage}, size=${size})}">Delete</a>
-                        </td>
-                        <td sec:authorize="hasAuthority('ADMIN')">
-                            <a class="btn btn-success"
-                               th:href="@{modifierCar(id=${car.idCar})}">Edit</a>
-                        </td>
+                        <a class="btn btn-success"
+                           th:href="@{modifierCar(id=${car.idCar},page=${currentPage},size=${size})}">Edit</a>
+                        <a class="btn btn-danger" onclick="return confirm('Are you sure?')"
+                           th:href="@{deleteCar(id=${car.idCar},page=${currentPage},size=${size})}">Delete</a>
                     </td>
                 </tr>
                 </tbody>
@@ -44,7 +39,7 @@
                 <li th:each="page,status:${pages}" th:class="${status.firstPage} ? disabled">
                     <a th:if="${!status.firstPage}"
                        th:href="@{ListeCars(page=${status.index}, size=${size})}"
-                       th:text="${status.index}"></a>
+                       th:text="${status.index}">1</a>
                 </li>
             </ul>
         </div>
